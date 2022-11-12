@@ -11,17 +11,18 @@ chrome.browserAction.onClicked.addListener(function () {
       document.querySelectorAll('a[ng-click="handleClick()"]')[1].click();
       // trigger left file bar [after above script]
       $("[class='editor-sidebar full-size ui-layout-container']").css({
-        'border-radius': '1em', 'box-shadow': '1px 1px 8px 2px #a9a9a9', 'background-color': '#ededede6',
+        'border-radius': '1em', 'box-shadow': '1px 1px 8px 2px #a9a9a9',
+        // 'background-color': '#ededede6',
         'top': '.6em', 'bottom': '.6em', 'left': '0'
       });
       // sub-element: top bar in left-menu
-      $("[class='toolbar toolbar-filetree']").css({
-        'background-color': '#fffefe', 'box-shadow': '0px 0px 6px 2px #666666', 'border-radius': '1em 1em 0 0' });
+      // $("[class='toolbar toolbar-filetree']").css({
+      //   'background-color': '#fffefe', 'box-shadow': '0px 0px 6px 2px #666666', 'border-radius': '1em 1em 0 0' });
       // sub-element: file icon
-      $("[class='entity-name entity-name-react']").css({'color': '#747474' });
+      // $("[class='entity-name entity-name-react']").css({'color': '#747474' });
       // sub-element: file name
-      $("[class='item-name-button']").css({
-        'color': 'rgba(56,56,56,0.98)', 'padding-left': '.25em' });
+      // $("[class='item-name-button']").css({
+      //   'color': 'rgba(56,56,56,0.98)', 'padding-left': '.25em' });
       // hide original arrow symbol
       $("[class='custom-toggler custom-toggler-west ng-scope custom-toggler-closed']").css('display', 'none');
       // add a new button
@@ -29,7 +30,8 @@ chrome.browserAction.onClicked.addListener(function () {
       let floatTrigger = $("#float-trigger");
       floatTrigger.css({
         'width': '22px', 'height': '40px', 'position': 'absolute', 'top': '50%', 'transform': 'translateY(-20px)',
-        'color': '#138a15d9', 'cursor': 'pointer', 'line-height': '40px', 'left': '.5em',
+        'color': '#138a15d9',
+        'cursor': 'pointer', 'line-height': '40px', 'left': '.5em',
         'text-shadow': '1px 1px #ffffff70'
       })
       floatTrigger.children().css({'font-family': 'FontAwesome', 'font-style': 'normal', 'font-size': '3em'})
@@ -47,9 +49,9 @@ chrome.browserAction.onClicked.addListener(function () {
       leftSubNav.css({
         'height': '2.5em',
         'position': 'absolute',
-        'margin': '.3em 0 0 .3em',
+        'margin': '3px 0 0 .3em',
         'padding': '0 1.5em 0 .6em',
-        'background-color': '#f1f1f1e6',
+        // 'background-color': '#f1f1f1e6',
         'box-shadow': 'rgb(161 161 161) 1px 1px 6px 2px',
         'border-radius': '2em',
       });
@@ -79,8 +81,30 @@ chrome.browserAction.onClicked.addListener(function () {
       // left editor below nav bar
       $("[class='ng-scope ng-isolate-scope']").css('top', '6px');
 
+
+      // ===========================editor row 
+      var style=`<style>
+        .cm-lineNumbers{
+            font-size:12px!important;
+        }
+    .cm-gutter-lint{
+    width:1px!important;
+    }
+    .cm-lint-marker{
+        width:20px!important;
+    }
+    .cm-foldGutter{
+        width:1px!important;
+    }
+    .cm-lint-marker{
+        position:absolute!important;
+    }
+    </style>`;
+    document.head.innerHTML+=style;
       // =================== right navigation bar ===========================
       //
+      $('.pdf.full-size > div').each((p, q) => $(q).css('top', '0px'));
+      
       let rightToolBar = $(".toolbar").filter(".toolbar-pdf");
       rightToolBar.css('opacity', '0');
       // add one clickable button
@@ -95,9 +119,9 @@ chrome.browserAction.onClicked.addListener(function () {
         rightToolBar.css({
           'height': '36px',
           'position': 'absolute',
-          'margin': '12px 0 0 16px',
+          'margin': '3px 0 0 16px',
           'padding': '0 1.5em 0 0',
-          'background-color': '#f1f1f1e6',
+          // 'background-color': '#f1f1e6',
           'box-shadow': 'rgb(161 161 161) 1px 1px 6px 2px',
           'border-radius': '2em',
           'z-index': '1000',
@@ -117,7 +141,7 @@ chrome.browserAction.onClicked.addListener(function () {
         $(".ng-scope").css('margin-lrft', '1em');
         // last button
         $('.toolbar-right').css('margin-left', '1em');
-
+        leftSubNav.toggle();
         // rightToolBar.toggle();
         if (rightToolBar.css('opacity') === '0') {
           $("#right-dropdown").attr('class', 'fas fa-chevron-circle-up');
@@ -136,7 +160,7 @@ chrome.browserAction.onClicked.addListener(function () {
       function errorPage() {
         let start = new Date().getTime();
         let checkExist = setInterval(function() {
-          if ( $("[class='log-btn']").find('span').attr('class').includes('label-danger') ) {
+          if ( $(".log-btn").find('span').attr('class').includes('label-danger')  ) {
             if (rightToolBar.css('opacity') === '0') { clickRightBtn() }
             $("[class='first-error-popup']").css({'border-radius': '16px', 'top': '65px', 'right': '', 'left': '18px', 'background-color': '#c9453e38', 'max-width': '425px'});
             $("[class='log-entry log-entry-first-error-popup']").css('border-radius', '16px');
@@ -169,7 +193,7 @@ chrome.browserAction.onClicked.addListener(function () {
       mutationObserver.observe(document.getElementsByClassName('btn btn-recompile')[0].children[0], { attributes: true })
 
       // last: check error
-      if ( $("[class='log-btn']").find('span').attr('class').includes('label-danger') ) {
+      if ( $(".log-btn").find('span').attr('class')?.includes('label-danger')  ) {
         clickRightBtn();
         // errorPage();
       }

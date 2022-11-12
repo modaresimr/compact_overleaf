@@ -1,2 +1,1 @@
-# simplify_overleaf
-
+# compact_overleaf

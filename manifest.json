@@ -1,19 +1,14 @@
 {
-  "name": "Simplify Overleaf",
-  "description": "Simplify your overleaf to focus on editing!",
+  "name": "compact Overleaf",
+  "description": "compact your overleaf to focus on editing!",
   "version": "1.0.3",
-  "homepage_url": "https://github.com/weigq/simplify_overleaf",
+  "homepage_url": "https://github.com/modaresimr/compact_overleaf",
   "manifest_version": 2,
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "scripts": ["background.js"]
   },
-  "permissions": [
-    "activeTab"
-  ],
-  "browser_action": {
-  },
+  "permissions": ["activeTab"],
+  "browser_action": {},
   "icons": {
     "128": "/logo-128.png"
   },
