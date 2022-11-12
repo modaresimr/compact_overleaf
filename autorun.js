@@ -1,6 +1,3 @@
-
-
-
   // folder bar
   function mainFunc() {
 
@@ -9,7 +6,10 @@
       // mimic click to hide left file bar
       document.querySelectorAll('a[ng-click="handleClick()"]')[1].click();
       // trigger left file bar [after above script]
-      $("[class='editor-sidebar full-size ui-layout-container']").css({
+		$('#ide-body').css('top', '0px');
+
+		$('div').each((p,q)=>q.style.height=parseInt(q.style.height)>500?'100vh':q.style.height);
+		$("[class='editor-sidebar full-size ui-layout-container']").css({
         'border-radius': '1em', 'box-shadow': '1px 1px 8px 2px #a9a9a9',
         // 'background-color': '#ededede6',
         'top': '.6em', 'bottom': '.6em', 'left': '0'
@@ -40,7 +40,29 @@
         $(document).mousemove(function (event) {
           if (event.pageX > fileBar.width()) { fileBar.css('display', 'none') } });
       });
-
+	  //top navbar
+		let topNav = $("[class='toolbar toolbar-header toolbar-with-labels']");
+		topNav.css('display', 'none');
+		$("<div id='top-float-trigger'><i class='fas fa-angle-double-down'></i></div>").insertAfter($(".editor.full-size.ng-scope")[0]);
+      let topfloatTrigger = $("#top-float-trigger");
+      topfloatTrigger.css({
+        'width': '22px', 'height': '40px', 'position': 'absolute','left':'50%', 'transform': 'translateX(-20px)',
+        'color': '#138a15d9',
+        'cursor': 'pointer', 'line-height': '40px', 'top': '.5em',
+		  'text-shadow': '1px 1px #ffffff70',
+		  'z-index':'99'
+      })
+		topfloatTrigger.children().css({ 'font-family': 'FontAwesome', 'font-style': 'normal', 'font-size': '3em' })
+		showf = function () {
+        
+			topNav.css({ 'z-index': '100', 'display': 'flex' });
+			$(document).mousemove(function (event) {
+				if (event.pageY > topNav.height()) { topNav.css('display', 'none') }
+			});
+		};
+		
+		topfloatTrigger.mouseover(showf);
+		topfloatTrigger.click(showf);
       // ==================== left navigation bar =====================
       // define elements in left nav bar
       let leftSubNav = $("[class='toolbar toolbar-editor ng-scope']");
@@ -78,7 +100,7 @@
         changeEditArea();
       });
       // left editor below nav bar
-      $("[class='ng-scope ng-isolate-scope']").css('top', '6px');
+      $("[class='ng-scope ng-isolate-scope']").css('top', '0px');
 
 
       // ===========================editor row 
@@ -98,6 +120,9 @@
     .cm-lint-marker{
         position:absolute!important;
     }
+	.pdfjs-controls{
+		top:46px!important;
+	}
     </style>`;
     document.head.innerHTML+=style;
       // =================== right navigation bar ===========================
@@ -112,9 +137,10 @@
       // click to display
       $("#nav-right-trigger").click(clickRightBtn);
       // remove origianl zoom btns
-      $(".pdfjs-controls").css({'left': '16px', 'top': '46px'});
+    //   $(".pdfjs-controls").css({'left': '16px', 'top': '46px'});
 
-      function clickRightBtn() {
+		function clickRightBtn() {
+			
         rightToolBar.css({
           'height': '36px',
           'position': 'absolute',
@@ -226,11 +252,10 @@
     simplifyFunc();
 
 }  // end of mainFunc
-  
 
-chrome.browserAction.onClicked.addListener(function () {
-  chrome.tabs.executeScript({ code: `(${ mainFunc })()` });
-
-
+$(document).ready(() => {
+	setTimeout(mainFunc, 2000);
 });
+// mainFunc();
 
+// chrome.tabs.executeScript({ code: `(${mainFunc})()` });

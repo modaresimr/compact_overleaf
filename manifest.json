@@ -7,7 +7,7 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab","http://www.overleaf.com/*", "https://www.overleaf.com/*"],
   "browser_action": {},
   "icons": {
     "128": "/logo-128.png"
@@ -15,8 +15,11 @@
   "options_page": "options.html",
   "content_scripts": [
     {
-      "js": ["/thirdparty/jquery.min.js", "/thirdparty/ResizeSensor.js", "/thirdparty/ElementQueries.js"],
-      "matches": ["http://*/*", "https://*/*"]
+      "js": ["/thirdparty/jquery.min.js", "/thirdparty/ResizeSensor.js", "/thirdparty/ElementQueries.js", "autorun.js"],
+
+      "matches": ["http://www.overleaf.com/*", "https://www.overleaf.com/*"],
+      "run_at": "document_end"
+
     }
   ],
   "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
