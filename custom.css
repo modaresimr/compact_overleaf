@@ -1,0 +1,18 @@
+.cm-lineNumbers{
+	font-size:12px!important;
+}
+.cm-gutter-lint{
+width:1px!important;
+}
+.cm-lint-marker{
+width:20px!important;
+}
+.cm-foldGutter{
+width:1px!important;
+}
+.cm-lint-marker{
+position:absolute!important;
+}
+.pdfjs-controls{
+top:46px!important;
+} 

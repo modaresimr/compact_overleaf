@@ -1,4 +1,4 @@
-
+/*
 
 
   // folder bar
@@ -226,11 +226,10 @@
     simplifyFunc();
 
 }  // end of mainFunc
-  
-
+*/
+console.log('background');
 chrome.browserAction.onClicked.addListener(function () {
-  chrome.tabs.executeScript({ code: `(${ mainFunc })()` });
-
-
+  console.log('background click');
+  chrome.tabs.executeScript({ code: `(${mainFunc})()` });
 });
 
